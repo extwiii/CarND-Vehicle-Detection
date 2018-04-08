@@ -11,15 +11,6 @@ The goals / steps of this project are the following:
 * Run pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
 * Estimate a bounding box for vehicles detected.
 
-[//]: # (Image References)
-[image1]: ./examples/car_not_car.png
-[image2]: ./examples/HOG_example.jpg
-[image3]: ./examples/sliding_windows.jpg
-[image4]: ./examples/sliding_window.jpg
-[image5]: ./examples/bboxes_and_heat.png
-[image6]: ./examples/labels_map.png
-[image7]: ./examples/output_bboxes.png
-[video1]: ./project_video.mp4
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
@@ -43,7 +34,11 @@ Please see IPython notebook for more sample images. It is very well commented
 
 I tried various combinations of parameters and I implemented these three to my model 
 
-spatial_feat=True, hist_feat=True, hog_feat=True
+I use get_hog_features function to describe my hog selection and used this function like below;
+
+get_hog_features(car_0_ch1, orient=9, pix_per_cell= 8, cell_per_block= 2, vis= True, feature_vec= True).
+
+I choose these parameters because of the example of the lesson.
 
 #### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
@@ -67,9 +62,11 @@ The code for this step is contained in the 15 code cell of the IPython notebook.
 
 Please see IPython notebook for more sample images. It is very well commented.
 
+I crop my main image of y index from 400 to 650 default and use different scale to get different size of cars. bigger scale for higher y index fields. You can see this section inside my multi_find_cars function. 
+
 #### 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
-Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.
+Ultimately I searched on eight scales using YUV 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.
 
 ### Video Implementation
 
